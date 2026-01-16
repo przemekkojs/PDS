@@ -30,7 +30,8 @@ function readForm() {
         to: to,
         type: type,
         persons: persons,
-        departure: departure
+        departure: departure,
+        trip_distance: 5 // TO TRZEBA JAKOŚ OBLICZAĆ...
     };
 
     console.log(body);
