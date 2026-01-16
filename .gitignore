@@ -1,0 +1,4 @@
+*.txt
+*.parquet
+catboost_info/
+*.csv

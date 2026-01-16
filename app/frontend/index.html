@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <title>NYC Taxi</title>
+        <link href="style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <main class="container">
+            <header class="header">
+                <h1 class="title">New York Taxi Cabs</h1>
+            </header>
+
+            <article class="content">
+                <section class="form-section">
+                    <form class="taxi-form">                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="from">Skąd:</label>
+                                <select id="from" class="form-select" required></select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="to">Dokąd:</label>
+                                <select id="to" class="form-select" required></select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="type">Typ taryfy:</label>
+                                <select id="type" class="form-select" required></select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="person-count">Liczba osób:</label>
+                                <input type="number" id="person-count" class="form-input" min="1" placeholder="1" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="departure">Godzina odjazdu:</label>
+                                <input type="time" id="departure" class="form-input">
+                            </div>
+                        </div>
+
+                        <div class="form-row form-actions">
+                            <div class="form-group">                                
+                                <input type="button" id="confirm" class="btn-primary" value="Szukaj">
+                                <span id="warning-text" class="warn"></span>
+                            </div>                            
+                        </div>
+                    </form>
+                </section>
+                
+                <section id="results" class="results-section">
+                    <div class="results-box">
+                        <div>
+                            Szacowany czas: <span id="time-est">—</span>
+                        </div>
+
+                        <div>
+                            Szacowana cena: 
+                            <span id="price-est">—</span> 
+                            (± <span id="price-acc">—</span>)
+                        </div>
+                    </div>
+                </section>
+            </article>
+
+            <footer class="footer"></footer>
+        </main>
+
+        <script src="index.js"></script>
+    </body>
+</html>
