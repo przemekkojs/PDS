@@ -5,7 +5,10 @@ from datetime import datetime
 import os
 import pickle
 
-def retrain(last_train_time: datetime, window: int, model, buffer_window, y_name="fare_amount"):
+LAST_TRAIN_TIME = datetime.now()
+DEFAULT_WINDOW = 60
+
+def retrain(last_train_time: datetime, window: int, model, buffer_window, y_name):
     current_time = datetime.now()
 
     if (current_time - last_train_time).total_seconds() < window:
@@ -40,7 +43,6 @@ def retrain(last_train_time: datetime, window: int, model, buffer_window, y_name
     finally:
         if os.path.exists(tmp_filename):
             os.remove(tmp_filename)
-
 
 def check(record, col) -> bool:
     return col not in record or record[col] is None and record[col] != 'nan'
@@ -108,3 +110,20 @@ def process_row(data) -> dict:
     record = {k: record[k] for k in good_cols if k in record}
 
     return record
+
+def retr(buffer_window, fee_model, time_model):
+    fm = retrain(LAST_TRAIN_TIME, DEFAULT_WINDOW, fee_model, buffer_window, 'fare_amount')
+    tm = retrain(LAST_TRAIN_TIME, DEFAULT_WINDOW, time_model, buffer_window, 'trip_time')
+
+    return ([], fm, tm)
+
+def predict_info(data:dict, fee_model:lgb.Booster, time_model:lgb.Booster):
+    data_df = pd.DataFrame(data, index=data.keys())
+    t_df = data_df.drop(columns=["trip_time"])
+    f_df = data_df.drop(columns=["fare_amount"])
+
+    f = abs(fee_model.predict(f_df)[0])
+    t = abs(time_model.predict(t_df)[0])
+    d = data['trip_distance']
+    
+    return (f, t, d)
