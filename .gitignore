@@ -5,3 +5,7 @@ catboost_info/
 *.pyc
 
 Projekt.html
+
+*.drawio
+arch.png
+fig2.png
